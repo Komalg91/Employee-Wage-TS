@@ -54,3 +54,8 @@ console.log(attendance_check(emp_atd_check));
 let random_time: number = Math.floor(Math.random()*10)%3;
 let daily_wages: number = daily_wage_func(random_time);
 console.log("Wage: " +daily_wages);
+
+//UC3 daily work hours
+
+let daily_hours: number = switch_func(random_time);
+console.log("Daily working hours: ", daily_hours);
