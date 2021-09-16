@@ -24,6 +24,7 @@ let emp_daily: number;
 let emp_daily_hour: number;
 const month_days: number = 20;
 const max_work_hours: number = 160;
+let emp_daily_wage_array: number[] = [];
 
 //UC3 daily hours
 function switch_func(random_time: number)
@@ -66,10 +67,14 @@ function max_work_hours_func(){
     let emp_month_days: number = 0;
     let emp_working_hours: number = 0;
     let emp_present_days: number = 0;
+
     while(emp_month_days < month_days && emp_working_hours < max_work_hours){
         let random_time: number = Math.floor(Math.random()*10)%3;
         emp_daily_hour = switch_func(random_time);
         let emp_daily_wage: number = daily_wage_func(emp_daily_hour);
+
+        //UC6 daily wage array
+        emp_daily_wage_array.push(emp_daily_wage);
         emp_month_days++;
         emp_working_hours = emp_working_hours + emp_daily_hour;
         emp_monthly_wage = emp_monthly_wage + emp_daily_wage;
@@ -81,7 +86,10 @@ function max_work_hours_func(){
     }
     console.log("Days present:", emp_present_days);
     console.log("Max hours:", emp_working_hours, " Monthly wage:", emp_monthly_wage);
+    console.log(emp_daily_wage_array);
 }
+
+//UC6 daily wage array
 
 
 let emp_atd_check: number = Math.floor(Math.random()*10)%2;
