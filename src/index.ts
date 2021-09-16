@@ -14,7 +14,6 @@ function attendance_check(empCheck: number): number {
     return empCheck;
 }
 
-//UC2 calculate daily wage
 
 const full_time: number = 8;
 const part_time: number = 4;
@@ -25,6 +24,7 @@ let emp_daily: number;
 let emp_daily_hour: number;
 const month_days: number = 20;
 
+//UC3 daily hours
 function switch_func(random_time: number)
 {
     switch(random_time)
@@ -41,10 +41,23 @@ function switch_func(random_time: number)
     }
     return emp_hours;
 }
-function daily_wage_func(random_time: number){
-    emp_daily_hour = switch_func(random_time);
+
+//UC2 calculate daily wage
+function daily_wage_func(emp_daily_hour: number): number{
     let daily_wage: number = emp_daily_hour * wage_per_hour;
     return daily_wage;
+}
+
+//UC4 Monthly wages
+function monthly_wage_func(){
+    for(let i = 0;i< month_days;i++){
+        let random_time: number = Math.floor(Math.random()*10)%3;
+        emp_daily_hour = switch_func(random_time);
+        let emp_daily_wage: number = daily_wage_func(emp_daily_hour);
+        emp_monthly_wage = emp_monthly_wage + emp_daily_wage;
+        console.log("Day:",i, "  Hours:", emp_daily_hour, "  Wage:",emp_daily_wage);
+    }
+    console.log("Monthly wage: ", emp_monthly_wage )
 }
 
 
@@ -55,7 +68,4 @@ let random_time: number = Math.floor(Math.random()*10)%3;
 let daily_wages: number = daily_wage_func(random_time);
 console.log("Wage: " +daily_wages);
 
-//UC3 daily work hours
-
-let daily_hours: number = switch_func(random_time);
-console.log("Daily working hours: ", daily_hours);
+monthly_wage_func();
