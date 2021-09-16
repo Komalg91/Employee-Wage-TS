@@ -13,3 +13,7 @@ function attendance_check(empCheck: number): number {
     }
     return empCheck;
 }
+
+let emp_atd_check: number = Math.floor(Math.random()*10)%2;
+console.log(attendance_check(emp_atd_check));
+
