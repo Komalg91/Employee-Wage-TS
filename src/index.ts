@@ -99,7 +99,7 @@ function emp_array_func(){
     let emp_present_days: number = 0;
     let emp_monthly_wage: number = 0;
     let emp_daily_wage: number;
-
+    let emp_new = new Map();
     while(emp_month_days < month_days && emp_working_hours < max_work_hours){
         let random_time: number = Math.floor(Math.random()*10)%3;
         emp_daily_hour = switch_func(random_time);
@@ -109,6 +109,9 @@ function emp_array_func(){
         emp_working_hours = emp_working_hours + emp_daily_hour;
 
         console.log("Day:",emp_month_days, "  Hours:", emp_daily_hour, "  Wage:",emp_daily_wage);
+
+        //UC8 map
+        emp_new.set(emp_month_days+1, emp_daily_wage);
         emp_month_days++;
         if(emp_daily_hour!=0){
             emp_present_days++;
@@ -118,6 +121,12 @@ function emp_array_func(){
     console.log("Max hours:", emp_working_hours);
     console.log(emp_daily_wage_array);
     
+    console.log(emp_new);
+    let total: number = 0;
+    emp_new.forEach(ele => {
+        total = ele + total
+    });
+    console.log("Total wage using map:",total);
     return emp_daily_wage_array;
 }
 
