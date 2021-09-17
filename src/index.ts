@@ -19,12 +19,12 @@ const full_time: number = 8;
 const part_time: number = 4;
 const wage_per_hour: number = 20;
 let emp_hours: number;
-let emp_monthly_wage: number = 0;
 let emp_daily: number;
 let emp_daily_hour: number;
 const month_days: number = 20;
 const max_work_hours: number = 160;
 let emp_daily_wage_array: number[] = [];
+
 
 //UC3 daily hours
 function switch_func(random_time: number)
@@ -52,6 +52,7 @@ function daily_wage_func(emp_daily_hour: number): number{
 
 //UC4 Monthly wages
 function monthly_wage_func(){
+    let emp_monthly_wage: number = 0;
     for(let i = 0;i< month_days;i++){
         let random_time: number = Math.floor(Math.random()*10)%3;
         emp_daily_hour = switch_func(random_time);
@@ -67,6 +68,7 @@ function max_work_hours_func(){
     let emp_month_days: number = 0;
     let emp_working_hours: number = 0;
     let emp_present_days: number = 0;
+    let emp_monthly_wage: number = 0;
 
     while(emp_month_days < month_days && emp_working_hours < max_work_hours){
         let random_time: number = Math.floor(Math.random()*10)%3;
@@ -74,7 +76,7 @@ function max_work_hours_func(){
         let emp_daily_wage: number = daily_wage_func(emp_daily_hour);
 
         //UC6 daily wage array
-        emp_daily_wage_array.push(emp_daily_wage);
+        // emp_daily_wage_array.push(emp_daily_wage);
         emp_month_days++;
         emp_working_hours = emp_working_hours + emp_daily_hour;
         emp_monthly_wage = emp_monthly_wage + emp_daily_wage;
@@ -86,10 +88,89 @@ function max_work_hours_func(){
     }
     console.log("Days present:", emp_present_days);
     console.log("Max hours:", emp_working_hours, " Monthly wage:", emp_monthly_wage);
-    console.log(emp_daily_wage_array);
+    // console.log(emp_daily_wage_array);
+    // return emp_daily_wage_array;
 }
 
-//UC6 daily wage array
+//UC7 
+function emp_array_func(){
+    let emp_month_days: number = 0;
+    let emp_working_hours: number = 0;
+    let emp_present_days: number = 0;
+    let emp_monthly_wage: number = 0;
+    let emp_daily_wage: number;
+
+    while(emp_month_days < month_days && emp_working_hours < max_work_hours){
+        let random_time: number = Math.floor(Math.random()*10)%3;
+        emp_daily_hour = switch_func(random_time);
+        emp_daily_wage = daily_wage_func(emp_daily_hour);
+
+        emp_daily_wage_array.push(emp_daily_wage);
+        emp_working_hours = emp_working_hours + emp_daily_hour;
+
+        console.log("Day:",emp_month_days, "  Hours:", emp_daily_hour, "  Wage:",emp_daily_wage);
+        emp_month_days++;
+        if(emp_daily_hour!=0){
+            emp_present_days++;
+        }
+    }
+    console.log("Days present:", emp_present_days);
+    console.log("Max hours:", emp_working_hours);
+    console.log(emp_daily_wage_array);
+    
+    return emp_daily_wage_array;
+}
+
+    //UC7A forEach method
+    
+    function foreach(){
+        let total: number = 0;
+
+        emp_daily_wage_array.forEach(element => {
+            total = total +element;
+        });
+        console.log("Employee wage using foreach method: ",total);
+    }
+    //UC7B
+    function map_array(){
+        let new_wage_array;
+        new_wage_array = emp_daily_wage_array.map(function(val,index){
+            return {key:index+1, value:val};
+        })
+        console.log(new_wage_array);
+        return new_wage_array;
+    }
+
+    //UC7C
+    function filter_array(){
+        let full_time_wage: number[] = [];
+        full_time_wage = emp_daily_wage_array.filter(function(val:number,index: number) {
+            if(val == 160){
+                full_time_wage.push(index+1);
+                console.log("Day:", index+1, " Wages:", val)
+            }
+        });
+        return full_time_wage;
+    }
+
+    //UC7D
+    function find_array(){
+        let full_time_wage: number[] = [];
+        emp_daily_wage_array.find((element,index) => {
+            if(element === 160)
+            {
+                full_time_wage.push(index+1);
+            }
+            });
+        console.log('Full time day using find: ', full_time_wage[0]);
+    }
+
+    //UC7F
+    function any_array(){
+            let full_time_wage: boolean;
+            full_time_wage = emp_daily_wage_array.some((val:number,index: number)=> val==80)
+            full_time_wage === true ? console.log("Part time found") : console.log("Part time not found");
+    }
 
 
 let emp_atd_check: number = Math.floor(Math.random()*10)%2;
@@ -101,3 +182,9 @@ console.log("Wage: " +daily_wages);
 
 monthly_wage_func();
 max_work_hours_func();
+emp_array_func();
+foreach();
+map_array();
+filter_array();
+find_array();
+any_array();
