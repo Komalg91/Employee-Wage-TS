@@ -206,7 +206,17 @@ function emp_array_func(){
             emp_day_map.set(emp_month_days,emp_daily_hour);
             
 
-            
+            let emp_object: {
+                Day: number,
+                Hours: number,
+                Wage: number 
+            }= {
+                Day: emp_month_days,
+                Hours: emp_daily_hour,
+                Wage: emp_daily_wage,
+            };
+
+            emp_array.push(emp_object);
             emp_month_days++;
         }
         
@@ -237,7 +247,11 @@ function emp_array_func(){
         console.log("Full days:", full_day);
         console.log("Half days:", half_day);
         console.log("No working days:", no_day);
-    }
+
+       
+        console.log(emp_array);
+
+        }
 
 
 let emp_atd_check: number = Math.floor(Math.random()*10)%2;
