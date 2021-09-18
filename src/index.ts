@@ -251,7 +251,37 @@ function emp_array_func(){
        
         console.log(emp_array);
 
-        }
+        //UC10 A
+        let total_hours: number = 0, total_wages: number = 0;
+        emp_array.forEach(ele1 => {
+            total_wages = total_wages + ele1.Wage;
+            total_hours = total_hours + ele1.Hours;
+        });
+        console.log("Total hours", total_hours, " Total wages", total_wages);
+        
+        // UC10 B
+        console.log("Full working days: ");
+        emp_array.forEach(ele => {
+            if(ele.Wage === 160){
+                console.log(ele.Day);
+            }
+        });
+
+        // UC10C
+        console.log("Half working days: ")
+        let half_work_days = emp_array.filter(ele=> ele.Hours == 4).map(ele => ele);
+        console.log(half_work_days);
+
+        //UC10 D
+        console.log("Non working days: ")
+        let no_work_days = emp_array.map(function(val,index){
+            if(val.Hours === 0){
+                return val.Day;
+                // val_day_array.push(val.Day);
+            }   
+        });
+        console.log(no_work_days.filter(Number));
+    }
 
 
 let emp_atd_check: number = Math.floor(Math.random()*10)%2;
