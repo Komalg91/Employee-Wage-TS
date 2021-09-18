@@ -44,11 +44,42 @@ class Payroll
         this.pay_salary = set_salary;
     }
     
-    toString()
+    display()
     {
         return "Name: " +this.pay_name +"  Salary: " +this.pay_salary + "  ID: " +this.pay_id;
     }
   
+}
+//UC12
+
+class EmployeePayroll extends Payroll
+{
+    public gender:string;
+    constructor(pay_name:string ,pay_id:number, pay_salary:number,gender:string)
+    {
+        super(pay_name,pay_id,pay_salary);
+        this.gender = gender;
+    }
+    get payroll_gender():string
+    {
+        return this.gender;
+    }
+    set payroll_gender(set_gender:string)
+    {
+        var regex = /^([MFmf])$/;
+        if(regex.test(this.gender)==true)
+        {
+            this.gender = set_gender;
+        }
+        else{
+            throw "Gender is invalid";
+        }
+    }
+    display():string
+    {
+        return super.display() + "  Gender: " +this.gender;
+    }
+
 }
 
 
@@ -59,8 +90,14 @@ console.log(payroll_obj.pay_id);
 console.log(payroll_obj.pay_salary);
 payroll_obj.pay_name = "John";
 console.log(payroll_obj.pay_name);
-console.log(payroll_obj.toString());
+console.log(payroll_obj.display());
 
+let emp_payy=new EmployeePayroll("Komal",123,36000,"F");
+console.log(emp_payy.display());
+emp_payy.payroll_gender = "F";
+emp_payy.payroll_id = 456;
+emp_payy.payroll_salary = 37000;
+console.log(emp_payy.display());
 
 
 
