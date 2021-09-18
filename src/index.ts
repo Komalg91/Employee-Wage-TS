@@ -1,3 +1,5 @@
+import { connect } from "http2";
+
 console.log("*************** Welcome to Employee Wage Computation******************");
 
 //UC1 check employee presence
@@ -89,17 +91,20 @@ function max_work_hours_func(){
     console.log("Days present:", emp_present_days);
     console.log("Max hours:", emp_working_hours, " Monthly wage:", emp_monthly_wage);
     // console.log(emp_daily_wage_array);
-    // return emp_daily_wage_array;
+    return [emp_daily_wage_array, emp_daily_hour];
 }
 
 //UC7 
+let emp_new = new Map();
+
 function emp_array_func(){
     let emp_month_days: number = 0;
     let emp_working_hours: number = 0;
     let emp_present_days: number = 0;
     let emp_monthly_wage: number = 0;
     let emp_daily_wage: number;
-    let emp_new = new Map();
+    let emp_array = new Array();
+
     while(emp_month_days < month_days && emp_working_hours < max_work_hours){
         let random_time: number = Math.floor(Math.random()*10)%3;
         emp_daily_hour = switch_func(random_time);
@@ -112,6 +117,8 @@ function emp_array_func(){
 
         //UC8 map
         emp_new.set(emp_month_days+1, emp_daily_wage);
+
+        
         emp_month_days++;
         if(emp_daily_hour!=0){
             emp_present_days++;
@@ -120,14 +127,9 @@ function emp_array_func(){
     console.log("Days present:", emp_present_days);
     console.log("Max hours:", emp_working_hours);
     console.log(emp_daily_wage_array);
-    
+
     console.log(emp_new);
-    let total: number = 0;
-    emp_new.forEach(ele => {
-        total = ele + total
-    });
-    console.log("Total wage using map:",total);
-    return emp_daily_wage_array;
+    return [emp_daily_wage_array,emp_new];
 }
 
     //UC7A forEach method
@@ -180,6 +182,62 @@ function emp_array_func(){
             full_time_wage = emp_daily_wage_array.some((val:number,index: number)=> val==80)
             full_time_wage === true ? console.log("Part time found") : console.log("Part time not found");
     }
+  
+    //UC10
+    function object_function(){
+        let emp_month_days: number = 0;
+        let emp_working_hours: number = 0;
+        let emp_array = new Array();
+        let emp_wage_map = new Map();
+        let emp_day_map = new Map();
+        
+
+        let emp_object;
+        while(emp_month_days < month_days && emp_working_hours < max_work_hours){
+            let random_time: number = Math.floor(Math.random()*10)%3;
+            emp_daily_hour = switch_func(random_time);
+            let emp_daily_wage: number = daily_wage_func(emp_daily_hour);
+
+           
+            emp_working_hours = emp_working_hours + emp_daily_hour;
+
+            
+            emp_wage_map.set(emp_month_days,emp_daily_wage);
+            emp_day_map.set(emp_month_days,emp_daily_hour);
+            
+
+            
+            emp_month_days++;
+        }
+        
+        //UC9A
+        const findTotal = (totalVal:number,dailyVal:number) => {
+            return totalVal + dailyVal;
+        }
+        let total_wage: number = 0;
+        let total_hour: number = 0;
+        total_hour = Array.from(emp_day_map.values()).reduce(findTotal,0);
+        console.log("Total hour", total_hour);
+
+        emp_wage_map.forEach((value,index) => {
+            total_wage += value;
+        });
+        console.log("Total Wage, ",total_wage);
+        
+
+        //UC9B
+        let full_day = new Array();
+        let half_day = new Array();
+        let no_day = new Array();
+        emp_day_map.forEach((value,index) => { 
+            if(value === 8) full_day.push(index)
+            else if(value === 4) half_day.push(index);
+            else no_day.push(index);
+        });
+        console.log("Full days:", full_day);
+        console.log("Half days:", half_day);
+        console.log("No working days:", no_day);
+    }
 
 
 let emp_atd_check: number = Math.floor(Math.random()*10)%2;
@@ -197,3 +255,5 @@ map_array();
 filter_array();
 find_array();
 any_array();
+
+object_function();
